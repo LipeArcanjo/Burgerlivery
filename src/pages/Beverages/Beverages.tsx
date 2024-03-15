@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Button, CategoryList, Layout, ProductCard } from "../../components";
-import { ProductCategories, ProductWrapper } from "./Hamburgers.style";
+import { ProductCategories, ProductWrapper } from "./Beverages.style";
 import {
   ProductCardContent,
   ProductCardPrice,
 } from "../../components/ProductCard/ProductCard.style";
 
-export default function Hamburgers() {
+export default function Beverages() {
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
@@ -34,8 +34,8 @@ export default function Hamburgers() {
     }
   }
 
-  const getHamburgers = async () => {
-    const url = "http://localhost:8000/hamburgers"
+  const getBeverages = async () => {
+    const url = "http://localhost:8000/beverages"
 
     setIsLoading(true)
 
@@ -55,12 +55,12 @@ export default function Hamburgers() {
   }, []);
 
   useEffect(() => {
-    getHamburgers();
-    }, []);
+    getBeverages();
+  }, []);
 
   return (
     <Layout>
-      <h1>Hamburgers</h1>
+      <h1>Bebidas</h1>
       <ProductCategories>
         {isLoading ? (
           <p>Carregando...</p>
@@ -82,9 +82,9 @@ export default function Hamburgers() {
                 <Button onClick={() => { }}>Adicionar</Button>
               </ProductCardContent>
               <ProductCardPrice>
-                {priceFormat(product.values.single)}
+                {priceFormat(product.value)}
               </ProductCardPrice>
-              <img src={product.image[0]} alt={product.title} />
+              <img src={product.image} alt={product.title} />
             </ProductCard>
           ))
         )}
