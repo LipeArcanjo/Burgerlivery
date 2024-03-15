@@ -32,7 +32,7 @@ export default function Beverages() {
     } finally {
       setIsLoading(false)
     }
-  }
+}
 
   const getBeverages = async () => {
     const url = "http://localhost:8000/beverages"
