@@ -61,7 +61,6 @@ export default function Appetizers() {
 
     useEffect(() => {
         if (products.length > 0) {
-            // Define o tamanho padrão como "small" para todos os produtos ao carregar a página
             setSelectedPrices(Array(products.length).fill("small"));
         }
     }, [products]);
@@ -98,30 +97,37 @@ export default function Appetizers() {
                             <ProductCardContent>
                                 <h2>{product.title}</h2>
                                 <p>{product.description}</p>
-                                <div>
-                                    <input
-                                        type="radio"
-                                        id={`small_${index}`}
-                                        value="small"
-                                        checked={selectedPrices[index] === "small"}
-                                        onChange={() => handlePriceChange(index, "small")}
-                                    />
-                                    <label htmlFor={`small_${index}`}>Pequeno</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="radio"
-                                        id={`large_${index}`}
-                                        value="large"
-                                        checked={selectedPrices[index] === "large"}
-                                        onChange={() => handlePriceChange(index, "large")}
-                                    />
-                                    <label htmlFor={`large_${index}`}>Grande</label>
-                                </div>
+                                {(product.values.large) === null ? (
+                                    <span>Tamanho Único
+                                        {Object.keys(product.values.small)}</span>
+                                ) : (
+                                    <>
+                                        <div>
+                                            <input
+                                                type="radio"
+                                                id={`small_${index}`}
+                                                value="small"
+                                                checked={selectedPrices[index] === "small"}
+                                                onChange={() => handlePriceChange(index, "small")} />
+                                            <label htmlFor={`small_${index}`}>Pequeno</label>
+                                        </div><div>
+                                            <input
+                                                type="radio"
+                                                id={`large_${index}`}
+                                                value="large"
+                                                checked={selectedPrices[index] === "large"}
+                                                onChange={() => handlePriceChange(index, "large")} />
+                                            <label htmlFor={`large_${index}`}>Grande</label>
+                                        </div>
+                                    </>
+                                )}
                                 <Button onClick={() => { }}>Adicionar</Button>
                             </ProductCardContent>
                             <ProductCardPrice>
-                                {priceFormat(product.values[selectedPrices[index]]
+                                {(product.values.large) === null ? (
+                                    priceFormat(product.values.small)
+                                ) : (
+                                    priceFormat(product.values[selectedPrices[index]])
                                 )}
                             </ProductCardPrice>
                             <img src={product.image} alt={product.title} />
