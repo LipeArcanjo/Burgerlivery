@@ -10,6 +10,7 @@ export default function Appetizers() {
     const [isLoading, setIsLoading] = useState(false);
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
+    const [selectedPrices, setSelectedPrices] = useState("small");
 
     const priceFormat = (price: number) => {
         return new Intl.NumberFormat("pt-BR", {
@@ -58,9 +59,27 @@ export default function Appetizers() {
         getAppetizers();
     }, []);
 
+    useEffect(() => {
+        if (products.length > 0) {
+            // Define o tamanho padrão como "small" para todos os produtos ao carregar a página
+            setSelectedPrices(Array(products.length).fill("small"));
+        }
+    }, [products]);
+
+    const handlePriceChange = (index: number, price: string) => {
+        let selectedPrice = price;
+        if (price !== "small" && price !== "large") {
+            selectedPrice = "small"; // Definir como padrão "small" se o tamanho não for válido
+        }
+        setSelectedPrices(prevSelectedPrices => ({
+            ...prevSelectedPrices,
+            [index]: selectedPrice,
+        }));
+    };
+
     return (
         <Layout>
-            <h1>Hamburgers</h1>
+            <h1>Entradinhas</h1>
             <ProductCategories>
                 {isLoading ? (
                     <p>Carregando...</p>
@@ -77,17 +96,33 @@ export default function Appetizers() {
                     products.map((product, index) => (
                         <ProductCard key={index}>
                             <ProductCardContent>
-
-                                {/* <Button size={undefined} onClick={function (): void { } }
-                                children={undefined}></Button> */}
-
-                                <h2>{product.title
-                                }</h2>
+                                <h2>{product.title}</h2>
                                 <p>{product.description}</p>
+                                <div>
+                                    <input
+                                        type="radio"
+                                        id={`small_${index}`}
+                                        value="small"
+                                        checked={selectedPrices[index] === "small"}
+                                        onChange={() => handlePriceChange(index, "small")}
+                                    />
+                                    <label htmlFor={`small_${index}`}>Pequeno</label>
+                                </div>
+                                <div>
+                                    <input
+                                        type="radio"
+                                        id={`large_${index}`}
+                                        value="large"
+                                        checked={selectedPrices[index] === "large"}
+                                        onChange={() => handlePriceChange(index, "large")}
+                                    />
+                                    <label htmlFor={`large_${index}`}>Grande</label>
+                                </div>
                                 <Button onClick={() => { }}>Adicionar</Button>
                             </ProductCardContent>
                             <ProductCardPrice>
-                                {priceFormat(product.values)}
+                                {priceFormat(product.values[selectedPrices[index]]
+                                )}
                             </ProductCardPrice>
                             <img src={product.image} alt={product.title} />
                         </ProductCard>
