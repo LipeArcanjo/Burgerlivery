@@ -34,10 +34,8 @@ export default function Beverages() {
     }
 }
 
-  const getBeverages = async () => {
+  const getBebidas = async () => {
     const url = "http://localhost:8000/beverages"
-
-    setIsLoading(true)
 
     try {
       const response = await fetch(url);
@@ -45,9 +43,7 @@ export default function Beverages() {
       setProducts(data);
     } catch (error) {
       console.log(error);
-    } finally {
-      setIsLoading(false)
-    }
+    } 
   }
 
   useEffect(() => {
@@ -55,7 +51,7 @@ export default function Beverages() {
   }, []);
 
   useEffect(() => {
-    getBeverages();
+    getBebidas();
   }, []);
 
   return (

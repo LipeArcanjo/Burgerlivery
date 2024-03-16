@@ -55,12 +55,12 @@ export default function Hamburgers() {
     }, []);
 
     useEffect(() => {
-        getHamburgers();
+        getCombos();
     }, []);
 
     return (
         <Layout>
-            <h1>Hamburgers</h1>
+            <h1>Combos</h1>
             <ProductCategories>
                 {isLoading ? (
                     <p>Carregando...</p>
@@ -77,14 +77,14 @@ export default function Hamburgers() {
                     products.map((product, index) => (
                         <ProductCard key={index}>
                             <ProductCardContent>
-                                <h2>{"Combo" + product.title}</h2>
-                                <p>{product.description + "Acompanha batata tradicional e bebida! =D"}</p>
+                                <h2>{"COMBO " + product.title}</h2>
+                                <p>{product.description + " Acompanha batata tradicional e bebida! =D"}</p>
                                 <Button onClick={() => { }}>Adicionar</Button>
                             </ProductCardContent>
                             <ProductCardPrice>
                                 {priceFormat(product.values.combo)}
                             </ProductCardPrice>
-                            <img src={product.image[1]} alt={"Combo" + product.title} />
+                            <img src={product.image[1]} alt={"Combo " + product.title} />
                         </ProductCard>
                     ))
                 )}
