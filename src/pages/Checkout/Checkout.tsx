@@ -56,35 +56,35 @@ export default function Checkout() {
       console.log("_________________________________");
       console.log("Hamburguers:");
       hamburgerOrder.forEach((hamburger) => {
-        console.log(hamburger.name);
+        console.log(hamburger.name, priceFormat(hamburger.value))
       });
     }
     if (comboOrder.length > 0) {
       console.log("_________________________________");
       console.log("Combos:");
       comboOrder.forEach((combo) => {
-        console.log(combo.name);
+        console.log(combo.name, priceFormat(combo.value));
       });
     }
     if (appettizerOrder.length > 0) {
       console.log("_________________________________");
       console.log("Entradas:");
       appettizerOrder.forEach((appettizer) => {
-        console.log(appettizer.name);
+        console.log(appettizer.name, priceFormat(appettizer.value));
       });
     }
     if (beveregeOrder.length > 0) {
       console.log("_________________________________");
       console.log("Bebidas:");
       beveregeOrder.forEach((beverege) => {
-        console.log(beverege.name);
+        console.log(beverege.name, priceFormat(beverege.value));
       });
     }
     if (dessertsOrder.length > 0) {
       console.log("_________________________________");
       console.log("Sobremesas:");
       dessertsOrder.forEach((dessert) => {
-        console.log(dessert.name);
+        console.log(dessert.name, priceFormat(dessert.value));
       });
     }
     console.log("_________________________________");
