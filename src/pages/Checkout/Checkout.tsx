@@ -40,7 +40,6 @@ export default function Checkout() {
   const handlePaymentSelection = (event) => {
     const selectedOption = event.target.value;
     setSelectedPayment(selectedOption);
-    console.log("Opção de pagamento selecionada:", selectedOption);
   };
 
   const {
@@ -52,11 +51,52 @@ export default function Checkout() {
     order
   } = useContext(OrderContext);
 
-  // const navigate = useNavigate();
-
-  // const handleClick = () => {
-  //   navigate("/order-confirmation");
-  // };
+  const handleFinalizeOrder = () => {
+    if (hamburgerOrder.length > 0) {
+      console.log("_________________________________");
+      console.log("Hamburguers:");
+      hamburgerOrder.forEach((hamburger) => {
+        console.log(hamburger.name);
+      });
+    }
+    if (comboOrder.length > 0) {
+      console.log("_________________________________");
+      console.log("Combos:");
+      comboOrder.forEach((combo) => {
+        console.log(combo.name);
+      });
+    }
+    if (appettizerOrder.length > 0) {
+      console.log("_________________________________");
+      console.log("Entradas:");
+      appettizerOrder.forEach((appettizer) => {
+        console.log(appettizer.name);
+      });
+    }
+    if (beveregeOrder.length > 0) {
+      console.log("_________________________________");
+      console.log("Bebidas:");
+      beveregeOrder.forEach((beverege) => {
+        console.log(beverege.name);
+      });
+    }
+    if (dessertsOrder.length > 0) {
+      console.log("_________________________________");
+      console.log("Sobremesas:");
+      dessertsOrder.forEach((dessert) => {
+        console.log(dessert.name);
+      });
+    }
+    console.log("_________________________________");
+    console.log("Valor Total:", priceFormat(order.totalValue));
+    console.log("_________________________________");
+    if (selectedPayment) {
+      const selectedPaymentOption = paymentOptions.find(option => option.id === selectedPayment);
+      if (selectedPaymentOption) {
+        console.log("Opção de pagamento:", selectedPaymentOption.text);
+      }
+    }
+  };
 
   return (
     <Layout>
@@ -161,7 +201,7 @@ export default function Checkout() {
           <div id="checkout">
             <p>Total: {priceFormat(order.totalValue)}</p>
             <Button variant="danger" size="small" onClick={handleOpen}>Alterar pedido</Button>
-            <Button variant="info" size="small" onClick={() => { }}>Finalizar pedido</Button>
+            <Button variant="info" size="small" onClick={handleFinalizeOrder}>Finalizar pedido</Button>
           </div>
         ) : (
           <span> O carrinho está vazio... Experimente adicionar algo &#128521;! </span>
